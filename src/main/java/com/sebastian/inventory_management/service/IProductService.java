@@ -10,4 +10,5 @@ public interface IProductService {
     void deleteProduct(Long id);
     Product getProductById(Long id);
     List<Product> getAllProducts();
+    List<Product> getProductsByCategory(Long categoryId);
 }
