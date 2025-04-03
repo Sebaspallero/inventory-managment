@@ -2,6 +2,8 @@ package com.sebastian.inventory_management.model;
 
 import java.time.LocalDateTime;
 
+import com.sebastian.inventory_management.enums.MovementType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

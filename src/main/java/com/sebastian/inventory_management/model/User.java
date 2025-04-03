@@ -2,6 +2,8 @@ package com.sebastian.inventory_management.model;
 
 import java.util.List;
 
+import com.sebastian.inventory_management.enums.Role;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
