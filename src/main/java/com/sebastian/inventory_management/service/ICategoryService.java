@@ -8,6 +8,7 @@ public interface ICategoryService {
     Category saveCategory(Category category);
     Category updateCategory(Long id, Category category);
     void deleteCategory(Long id);
+    Category getCategoryByName(String name);
     Category getCategoryById(Long id);
     List<Category> getAllCategories();
 }

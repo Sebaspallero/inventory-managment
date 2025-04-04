@@ -9,6 +9,10 @@ public interface IProductService {
     Product updateProduct(Long id, Product product);
     void deleteProduct(Long id);
     Product getProductById(Long id);
+    Product getProductByName(String name);
     List<Product> getAllProducts();
     List<Product> getProductsByCategory(Long categoryId);
+    List<Product> getProductBySupplierId(Long supplierId);
+    List<Product> findByStockLessThan(int stockThreshold);
+    List<Product> findByStockMoreThan(int stockThreshold);
 }

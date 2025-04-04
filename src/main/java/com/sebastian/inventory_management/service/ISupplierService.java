@@ -9,5 +9,7 @@ public interface ISupplierService {
     Supplier updateSupplier(Long id, Supplier supplier);
     void deleteSupplier(Long id);
     Supplier getSupplierById(Long id);
+    Supplier getSupplierByName(String name);
+    Supplier getSupplierByContactEmail(String contactEmail);
     List<Supplier> getAllSuppliers();
 }

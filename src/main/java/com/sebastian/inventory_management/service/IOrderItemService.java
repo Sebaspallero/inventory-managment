@@ -9,4 +9,8 @@ public interface IOrderItemService {
     void deleteOrderItem(Long id);
     OrderItem getOrderItemById(Long id);
     List<OrderItem> getAllOrderItems();
+    List<OrderItem> getOrderItemsByOrderId(Long orderId);
+    List<OrderItem> findByOrderId(Long orderId);
+    List<OrderItem> findByProductId(Long productId);
+    Integer getTotalQuantityOrdered(Long productId);
 }
