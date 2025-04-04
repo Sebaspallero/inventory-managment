@@ -2,14 +2,15 @@ package com.sebastian.inventory_management.service;
 
 import java.util.List;
 
-import com.sebastian.inventory_management.model.User;
+import com.sebastian.inventory_management.DTO.User.UserRequestDTO;
+import com.sebastian.inventory_management.DTO.User.UserResponseDTO;
 
 public interface IUserService {
-    User addUser(User user);
-    User updateUser(Long id, User user);
+    UserResponseDTO addUser(UserRequestDTO user);
+    UserResponseDTO updateUser(Long id, UserRequestDTO user);
     void deleteUser(Long id);
-    User getUserById(Long id);
-    User getUserByUsername(String username);
-    User getUserByEmail(String email);
-    List<User> getAllUsers();
+    UserResponseDTO getUserById(Long id);
+    UserResponseDTO getUserByUsername(String username);
+    UserResponseDTO getUserByEmail(String email);
+    List<UserResponseDTO> getAllUsers();
 }
