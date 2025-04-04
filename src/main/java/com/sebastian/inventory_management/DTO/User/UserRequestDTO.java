@@ -24,7 +24,4 @@ public class UserRequestDTO {
 
     @NotNull(message = "Role is required")
     private Role role;
-
-    @NotNull(message = "Enabled status is required")
-    private boolean enabled;
 }
