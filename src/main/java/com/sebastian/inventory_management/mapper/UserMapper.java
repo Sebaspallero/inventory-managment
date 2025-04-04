@@ -15,6 +15,7 @@ public interface UserMapper {
     
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "movements", ignore = true)
+    @Mapping(target = "enabled", ignore = true)
     User toEntity(UserRequestDTO userRequestDTO);
 
     UserResponseDTO toDTO(User user);
@@ -23,5 +24,6 @@ public interface UserMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "movements", ignore = true)
+    @Mapping(target = "enabled", ignore = true)
     void updateEntityFromDto(UserRequestDTO dto, @MappingTarget User entity);
 }
