@@ -2,13 +2,14 @@ package com.sebastian.inventory_management.service;
 
 import java.util.List;
 
-import com.sebastian.inventory_management.model.Category;
+import com.sebastian.inventory_management.DTO.Category.CategoryRequestDTO;
+import com.sebastian.inventory_management.DTO.Category.CategoryResponseDTO;
 
 public interface ICategoryService {
-    Category saveCategory(Category category);
-    Category updateCategory(Long id, Category category);
+    CategoryResponseDTO saveCategory(CategoryRequestDTO category);
+    CategoryResponseDTO updateCategory(Long id, CategoryRequestDTO category);
     void deleteCategory(Long id);
-    Category getCategoryByName(String name);
-    Category getCategoryById(Long id);
-    List<Category> getAllCategories();
+    CategoryResponseDTO getCategoryByName(String name);
+    CategoryResponseDTO getCategoryById(Long id);
+    List<CategoryResponseDTO> getAllCategories();
 }
