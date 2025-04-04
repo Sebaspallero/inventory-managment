@@ -2,14 +2,15 @@ package com.sebastian.inventory_management.service;
 
 import java.util.List;
 
-import com.sebastian.inventory_management.model.Supplier;
+import com.sebastian.inventory_management.DTO.Supplier.SupplierRequestDTO;
+import com.sebastian.inventory_management.DTO.Supplier.SupplierResponseDTO;
 
 public interface ISupplierService {
-    Supplier saveSupplier(Supplier supplier);
-    Supplier updateSupplier(Long id, Supplier supplier);
+    SupplierResponseDTO saveSupplier(SupplierRequestDTO supplier);
+    SupplierResponseDTO getSupplierById(Long id);
+    SupplierResponseDTO getSupplierByName(String name);
+    SupplierResponseDTO getSupplierByContactEmail(String contactEmail);
+    List<SupplierResponseDTO> getAllSuppliers();
     void deleteSupplier(Long id);
-    Supplier getSupplierById(Long id);
-    Supplier getSupplierByName(String name);
-    Supplier getSupplierByContactEmail(String contactEmail);
-    List<Supplier> getAllSuppliers();
+    SupplierResponseDTO updateSupplier(Long id, SupplierRequestDTO supplier);
 }
