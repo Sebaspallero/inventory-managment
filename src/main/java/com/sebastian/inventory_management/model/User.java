@@ -46,7 +46,7 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private boolean enabled = true;
+    private boolean enabled;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "role")
