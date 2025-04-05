@@ -15,7 +15,7 @@ import com.sebastian.inventory_management.repository.CategoryRepository;
 import com.sebastian.inventory_management.service.ICategoryService;
 
 @Service
-public class CategoryServiceImpl implements ICategoryService{
+public class CategoryServiceImpl implements ICategoryService   {
 
     private CategoryRepository categoryRepository;
     private CategoryMapper categoryMapper;
@@ -38,8 +38,8 @@ public class CategoryServiceImpl implements ICategoryService{
     @Override
     @Transactional(readOnly = true)
     public CategoryResponseDTO getCategoryById(Long id) {
-       Category category = categoryRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Category not found with id: " + id));
+          Category category = categoryRepository.findById(id)
+                        .orElseThrow(() -> new ResourceNotFoundException("Category not found with id: " + id));
         return categoryMapper.toDTO(category);
     }
 
@@ -47,7 +47,7 @@ public class CategoryServiceImpl implements ICategoryService{
     @Transactional(readOnly = true)
     public CategoryResponseDTO getCategoryByName(String name) {
         Category category = categoryRepository.findByName(name)
-            .orElseThrow(() -> new ResourceNotFoundException("Category not found with name: " + name));
+                        .orElseThrow(() -> new ResourceNotFoundException("Category not found with name: " + name));
         return categoryMapper.toDTO(category);
     }
 
@@ -61,21 +61,28 @@ public class CategoryServiceImpl implements ICategoryService{
     @Override
     @Transactional
     public void deleteCategory(Long id) {
-        Category category = getCategoryByIdAux(id);
+        Category category = getCategoryByIdEntity(id);
         categoryRepository.delete(category);
     }
 
     @Override
     @Transactional
     public CategoryResponseDTO updateCategory(Long id, CategoryRequestDTO category) {
-        Category categoryToUpdate = getCategoryByIdAux(id);
+        Category categoryToUpdate = getCategoryByIdEntity(id);
         validateUniqueCategoryName(category.getName(), id);
         categoryMapper.updateEntityFromDto(category, categoryToUpdate);
         categoryRepository.save(categoryToUpdate);
         return categoryMapper.toDTO(categoryToUpdate);
     }
 
-    private Category getCategoryByIdAux(Long id) {
+    @Override
+    public boolean existsById(Long id) {
+        return categoryRepository.existsById(id);
+                        
+    }
+
+    @Override
+    public Category getCategoryByIdEntity(Long id) {
         return categoryRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Category not found with id: " + id));
     }
