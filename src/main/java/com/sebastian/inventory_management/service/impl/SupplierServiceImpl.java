@@ -62,22 +62,28 @@ public class SupplierServiceImpl implements ISupplierService{
 
     @Override
     public void deleteSupplier(Long id) {
-        Supplier supplier = getSupplierByIdAux(id);
+        Supplier supplier = getSupplierByIdEntity(id);
         supplierRepository.delete(supplier);
     }
 
     @Override
     public SupplierResponseDTO updateSupplier(Long id, SupplierRequestDTO supplier) {
-        Supplier supplierToUpdate = getSupplierByIdAux(id);
+        Supplier supplierToUpdate = getSupplierByIdEntity(id);
         validateUniqueSupplier(supplier.getName(), supplier.getContactEmail(), id);
         supplierMapper.updateEntityFromDto(supplier, supplierToUpdate);
         supplierRepository.save(supplierToUpdate);
         return supplierMapper.toDTO(supplierToUpdate);
     }
 
-    private Supplier getSupplierByIdAux(Long id) {
+    @Override
+    public boolean existsById(Long id) {
+        return supplierRepository.existsById(id);
+    }
+
+    @Override
+    public Supplier getSupplierByIdEntity(Long id) {
         return supplierRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("Supplier not found with id: " + id));
+        .orElseThrow(() -> new ResourceNotFoundException("Supplier not found with id: " + id));
     }
 
     private void validateUniqueSupplier(String name, String contactEmail, Long excludeId) {
@@ -93,5 +99,4 @@ public class SupplierServiceImpl implements ISupplierService{
             }
         });
     }
-    
 }
