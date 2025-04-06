@@ -3,6 +3,10 @@ package com.sebastian.inventory_management.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,8 +19,8 @@ import com.sebastian.inventory_management.repository.UserRepository;
 import com.sebastian.inventory_management.service.IUserService;
 
 @Service
-public class UserServiceImpl implements IUserService{
-    
+public class UserServiceImpl implements IUserService, UserDetailsService {
+
     private UserRepository userRepository;
     private UserMapper userMapper;
 
@@ -33,12 +37,12 @@ public class UserServiceImpl implements IUserService{
         User savedUser = userRepository.save(userToSave);
         return userMapper.toDTO(savedUser);
     }
-    
+
     @Override
     @Transactional(readOnly = true)
     public UserResponseDTO getUserById(Long id) {
         User user = userRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
         return userMapper.toDTO(user);
     }
 
@@ -62,7 +66,7 @@ public class UserServiceImpl implements IUserService{
     @Transactional(readOnly = true)
     public UserResponseDTO getUserByUsername(String username) {
         User user = userRepository.findByUsername(username)
-            .orElseThrow(() -> new ResourceNotFoundException("User not found with username: " + username));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with username: " + username));
         return userMapper.toDTO(user);
     }
 
@@ -70,7 +74,7 @@ public class UserServiceImpl implements IUserService{
     @Transactional(readOnly = true)
     public UserResponseDTO getUserByEmail(String email) {
         User user = userRepository.findByEmail(email)
-            .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
         return userMapper.toDTO(user);
     }
 
@@ -85,6 +89,18 @@ public class UserServiceImpl implements IUserService{
     @Transactional(readOnly = true)
     public User getUserByIdEntity(Long id) {
         return userRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+
+        return new org.springframework.security.core.userdetails.User(
+                user.getUsername(),
+                user.getPassword(),
+                List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
+        );
     }
 }

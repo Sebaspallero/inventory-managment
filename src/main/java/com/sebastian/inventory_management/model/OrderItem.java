@@ -10,8 +10,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,21 +28,16 @@ public class OrderItem {
     private Long id;
 
     @Column(nullable = false)
-    @NotNull(message = "Quantity cannot be null")
-    @Min(1)
     private int quantity;
 
     @Column(nullable = false)
-    @NotNull(message = "Price cannot be null")
     private BigDecimal price;
 
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
-    @NotNull(message = "Order cannot be null")
     private Order order;
 
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
-    @NotNull(message = "Product cannot be null")
     private Product product;
 }

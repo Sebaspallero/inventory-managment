@@ -15,8 +15,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,16 +33,13 @@ public class Order {
     private Long id;
 
     @Column(name = "order_number", nullable = false, unique = true)
-    @NotBlank(message = "Order number cannot be null")
     private String orderNumber;
 
     @Column(name = "order_date", nullable = false)
-    @NotNull(message = "Order date cannot be null")
     private LocalDateTime orderDate;
 
     @ManyToOne
     @JoinColumn(name = "supplier_id")
-    @NotNull(message = "Supplier cannot be null") 
     private Supplier supplier;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)

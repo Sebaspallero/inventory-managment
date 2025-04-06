@@ -12,6 +12,8 @@ A basic inventory management REST API built with **Spring Boot**, designed to ha
 - **Inventory Movements**: Manually register `IN` (incoming) or `OUT` (outgoing) stock operations.
 - **Stock Updates**: Stock levels are automatically updated when a movement is created.
 - **Date-based Queries**: Retrieve orders or movements between date ranges.
+- **User Authentication**: Register users with different roles `EMPLOYEE` or `ADMIN`.
+- **User Uthorization**: Protect endpoints based on user role.
 
 ## 🧠 Tech Stack
 
@@ -19,6 +21,7 @@ A basic inventory management REST API built with **Spring Boot**, designed to ha
 - Spring Boot 3
 - Spring Data JPA
 - MySQL (or any SQL database)
+- Spring Security - JWT
 - MapStruct
 - Maven
 - Lombok
@@ -79,8 +82,6 @@ Set variables in .vscode/launch.json or your environment before running the app.
 ```
 
 ## 📌 Next Steps
-
-- Secure the API with Spring Security (role-based access)
 
 - Automate inventory movements from order processing
 
