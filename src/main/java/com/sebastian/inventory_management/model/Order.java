@@ -1,6 +1,7 @@
 package com.sebastian.inventory_management.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -46,7 +47,7 @@ public class Order {
     @NotNull(message = "Supplier cannot be null") 
     private Supplier supplier;
 
-     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<OrderItem> items;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<OrderItem> items = new ArrayList<>();
   
 }

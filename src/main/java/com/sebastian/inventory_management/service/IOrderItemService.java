@@ -2,15 +2,10 @@ package com.sebastian.inventory_management.service;
 
 import java.util.List;
 
-import com.sebastian.inventory_management.model.OrderItem;
+import com.sebastian.inventory_management.DTO.OrderItem.OrderItemResponseDTO;
 
 public interface IOrderItemService {
-    OrderItem saveOrderItem(OrderItem item);
-    void deleteOrderItem(Long id);
-    OrderItem getOrderItemById(Long id);
-    List<OrderItem> getAllOrderItems();
-    List<OrderItem> getOrderItemsByOrderId(Long orderId);
-    List<OrderItem> findByOrderId(Long orderId);
-    List<OrderItem> findByProductId(Long productId);
-    Integer getTotalQuantityOrdered(Long productId);
+    OrderItemResponseDTO getOrderItemById(Long id);
+    List<OrderItemResponseDTO> findByOrderId(Long orderId);
+    List<OrderItemResponseDTO> findByProductId(Long productId);
 }
