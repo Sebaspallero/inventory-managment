@@ -16,6 +16,8 @@ public interface OrderMapper {
     @Mapping(source = "supplierId", target = "supplier.id")
     @Mapping(source = "items", target = "items")
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "orderDate", ignore = true)
+    @Mapping(target = "orderNumber", ignore = true)
     Order toEntity(OrderRequestDTO dto);
 
     @Mapping(source = "supplier.id", target = "supplierId")
@@ -28,5 +30,7 @@ public interface OrderMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "supplierId", target = "supplier.id")
     @Mapping(source = "items", target = "items")
+    @Mapping(target = "orderDate", ignore = true)
+    @Mapping(target = "orderNumber", ignore = true)
     void updateEntityFromDto(OrderRequestDTO dto, @MappingTarget Order order);
 }
