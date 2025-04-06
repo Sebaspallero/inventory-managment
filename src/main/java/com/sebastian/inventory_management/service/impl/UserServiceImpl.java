@@ -45,7 +45,7 @@ public class UserServiceImpl implements IUserService{
     @Override
     @Transactional
     public UserResponseDTO updateUser(Long id, UserRequestDTO user) {
-        User userToUpdate = getUserByIdAux(id);
+        User userToUpdate = getUserByIdEntity(id);
         userMapper.updateEntityFromDto(user, userToUpdate);
         userRepository.save(userToUpdate);
         return userMapper.toDTO(userToUpdate);
@@ -54,7 +54,7 @@ public class UserServiceImpl implements IUserService{
     @Override
     @Transactional
     public void deleteUser(Long id) {
-        User user = getUserByIdAux(id);
+        User user = getUserByIdEntity(id);
         userRepository.delete(user);
     }
 
@@ -81,8 +81,10 @@ public class UserServiceImpl implements IUserService{
         return userMapper.toDTOList(users);
     }
 
-    private User getUserByIdAux(Long id) {
+    @Override
+    @Transactional(readOnly = true)
+    public User getUserByIdEntity(Long id) {
         return userRepository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+        .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
 }
