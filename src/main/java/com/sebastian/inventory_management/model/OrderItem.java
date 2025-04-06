@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +31,7 @@ public class OrderItem {
 
     @Column(nullable = false)
     @NotNull(message = "Quantity cannot be null")
+    @Min(1)
     private int quantity;
 
     @Column(nullable = false)
