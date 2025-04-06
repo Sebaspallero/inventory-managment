@@ -11,9 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,17 +29,12 @@ public class Supplier {
     private Long id;
 
     @Column(nullable = false, unique = true, name = "name")
-    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @Column(nullable = false, unique = true, name = "contact_email")
-    @NotBlank(message = "Contact email is mandatory")
-    @Email(message = "Invalid email format") 
     private String contactEmail;
 
     @Column(nullable = false, unique = true, name = "phone_number")
-    @NotBlank(message = "Phone number is mandatory")
-    @Pattern(regexp = "\\d{10,15}", message = "Invalid phone number")
     private String phoneNumber;
 
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,36 +33,42 @@ public class InventoryMovementController {
         this.inventoryMovementService = inventoryMovementService;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<InventoryMovementResponseDTO> addMovement(@Valid @RequestBody InventoryMovementRequestDTO request) {
         InventoryMovementResponseDTO createdMovement = inventoryMovementService.addMovement(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdMovement);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     @GetMapping("/{id}")
     public ResponseEntity<InventoryMovementResponseDTO> getMovementById(@PathVariable Long id) {
         InventoryMovementResponseDTO movement = inventoryMovementService.getMovementById(id);
         return ResponseEntity.ok(movement);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     @GetMapping
     public ResponseEntity<List<InventoryMovementResponseDTO>> getAllMovements() {
         List<InventoryMovementResponseDTO> movements = inventoryMovementService.getAllMovements();
         return ResponseEntity.ok(movements);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     @GetMapping("/product/{productId}")
     public ResponseEntity<List<InventoryMovementResponseDTO>> getMovementsByProduct(@PathVariable Long productId) {
         List<InventoryMovementResponseDTO> movements = inventoryMovementService.findByProductId(productId);
         return ResponseEntity.ok(movements);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<InventoryMovementResponseDTO>> getMovementsByUser(@PathVariable Long userId) {
         List<InventoryMovementResponseDTO> movements = inventoryMovementService.findByUserId(userId);
         return ResponseEntity.ok(movements);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     @GetMapping("/between-dates")
     public ResponseEntity<List<InventoryMovementResponseDTO>> getMovementsBetweenDates(
             @RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,

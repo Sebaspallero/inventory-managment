@@ -1,4 +1,4 @@
-package com.sebastian.inventory_management.DTO.User;
+package com.sebastian.inventory_management.DTO.Auth;
 
 import com.sebastian.inventory_management.enums.Role;
 
@@ -11,12 +11,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-public class UserRequestDTO {
-    
+@NoArgsConstructor
+@AllArgsConstructor
+public class RegisterRequest {
+
     @NotBlank(message = "Username is required")
     @Size(min = 3, max = 30, message = "Username must be between 3 and 30 characters")
     private String username;
@@ -31,4 +31,5 @@ public class UserRequestDTO {
 
     @NotNull(message = "Role is required")
     private Role role;
+
 }

@@ -20,25 +20,25 @@ import lombok.Setter;
 public class ProductRequestDTO {
 
     @NotBlank(message = "Name is mandatory")
-    @Size(max = 100, message = "Name must be less than 100 characters")
+    @Size(max = 100, message = "Name must be at most 100 characters")
     private String name;
-
+    
     @NotBlank(message = "Description is mandatory")
-    @Size(max = 255, message = "Description must be less than 255 characters")
+    @Size(max = 255, message = "Description must be at most 255 characters")
     private String description;
-
-    @NotNull(message = "Stock cannot be null")
+    
+    @NotNull(message = "Stock is required")
     @Min(value = 0, message = "Stock cannot be negative")
-    private int stock;
-
-    @NotNull(message = "Price cannot be null")
-    @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than zero")
-    @Digits(integer = 10, fraction = 2, message = "Price format is invalid")
+    private Integer stock;
+    
+    @NotNull(message = "Price is required")
+    @DecimalMin(value = "0.01", inclusive = true, message = "Price must be greater than 0")
+    @Digits(integer = 10, fraction = 2, message = "Price must be a valid monetary amount (max 2 decimal places)")
     private BigDecimal price;
-
-    @NotNull(message = "Category cannot be null")
+    
+    @NotNull(message = "Category ID is required")
     private Long categoryId;
-
-    @NotNull(message = "Supplier cannot be null")
+    
+    @NotNull(message = "Supplier ID is required")
     private Long supplierId;
 }

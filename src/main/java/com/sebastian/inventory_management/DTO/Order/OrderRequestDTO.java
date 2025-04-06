@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sebastian.inventory_management.DTO.OrderItem.OrderItemRequestDTO;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ public class OrderRequestDTO {
     private Long supplierId;
 
     @NotEmpty(message = "Order must contain at least one item")
-    private List<OrderItemRequestDTO> items;
+    @Valid
+    private List<@Valid OrderItemRequestDTO> items;
 
 }
