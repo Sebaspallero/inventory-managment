@@ -15,4 +15,5 @@ public interface IUserService {
     UserResponseDTO getUserByEmail(String email);
     List<UserResponseDTO> getAllUsers();
     User getUserByIdEntity(Long id);
+    User getCurrentUser();
 }
