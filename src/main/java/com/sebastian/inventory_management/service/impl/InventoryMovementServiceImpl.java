@@ -102,7 +102,7 @@ public class InventoryMovementServiceImpl implements IInventoryMovementService {
         return movementMapper.toDTOList(movements);
     }
 
-    private void updateStock(Product product, int quantity, MovementType type) {
+    public void updateStock(Product product, int quantity, MovementType type) {
         if (type == MovementType.IN) {
             product.setStock(product.getStock() + quantity);
         } else if (type == MovementType.OUT) {
