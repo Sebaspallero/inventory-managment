@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.sebastian.inventory_management.DTO.Order.OrderCountByMonthDTO;
 import com.sebastian.inventory_management.DTO.Order.OrderRequestDTO;
 import com.sebastian.inventory_management.DTO.Order.OrderResponseDTO;
 import com.sebastian.inventory_management.DTO.OrderItem.OrderItemRequestDTO;
@@ -74,16 +75,12 @@ public class OrderServiceImpl implements IOrderService {
         order.setOrderDate(LocalDateTime.now());
         order.setOrderNumber(generateOrderNumber());
 
-        // Primero mapeás los ítems Y LES SETEÁS EL ORDER
         List<OrderItem> orderItems = mapOrderItems(orderDTO.getItems(), order);
 
-        // 👇 ESTA LÍNEA ES CLAVE: le asignás los items al order antes de guardar
         order.setItems(orderItems);
 
-        // Ahora sí guardás el order con los ítems seteados correctamente
         Order savedOrder = orderRepository.save(order);
 
-        // Crear los movimientos de inventario
         createInventoryMovementsForOrder(savedOrder);
 
         return orderMapper.toDTO(savedOrder);
@@ -125,6 +122,16 @@ public class OrderServiceImpl implements IOrderService {
     public List<OrderResponseDTO> getOrdersBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         List<Order> orders = orderRepository.findByOrderDateBetween(startDate, endDate);
         return orderMapper.toDTOList(orders);
+    }
+
+    @Override
+    public List<OrderCountByMonthDTO> countOrdersByMonth() {
+       return orderRepository.countOrdersByMonth();
+    }
+
+    @Override
+    public List<OrderResponseDTO> findRecentOrders() {
+        return orderRepository.findRecentOrders();
     }
 
     @Override
@@ -190,4 +197,5 @@ public class OrderServiceImpl implements IOrderService {
             productRepository.save(item.getProduct());
         }
     }
+
 }

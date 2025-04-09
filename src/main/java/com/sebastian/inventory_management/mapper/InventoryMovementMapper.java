@@ -22,6 +22,7 @@ public interface InventoryMovementMapper {
     @Mapping(source = "product.name", target = "productName")
     @Mapping(source = "user.id", target = "userId")
     @Mapping(source = "user.username", target = "username")
+    @Mapping(target = "totalQuantity", ignore = true)
     InventoryMovementResponseDTO toDTO(InventoryMovement movement);
 
     List<InventoryMovementResponseDTO> toDTOList(List<InventoryMovement> movements);

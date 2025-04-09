@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sebastian.inventory_management.DTO.Order.OrderCountByMonthDTO;
 import com.sebastian.inventory_management.DTO.Order.OrderRequestDTO;
 import com.sebastian.inventory_management.DTO.Order.OrderResponseDTO;
 import com.sebastian.inventory_management.service.IOrderService;
@@ -78,6 +79,20 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getOrdersBetweenDates(start, end));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
+    @GetMapping("/monthly")
+    public ResponseEntity<List<OrderCountByMonthDTO>> getOrdersByMonth() {
+        List<OrderCountByMonthDTO> orderResponseDTO = orderService.countOrdersByMonth();
+        return ResponseEntity.status(HttpStatus.OK).body(orderResponseDTO);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
+    @GetMapping("/recent")
+    public ResponseEntity<List<OrderResponseDTO>> getRecentOrders() {
+        List<OrderResponseDTO> orderResponseDTO = orderService.findRecentOrders();
+        return ResponseEntity.status(HttpStatus.OK).body(orderResponseDTO);
+    }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<OrderResponseDTO> updateOrder(@PathVariable Long id, @RequestBody @Valid OrderRequestDTO orderDTO) {
@@ -91,5 +106,4 @@ public class OrderController {
         orderService.deleteOrder(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-    
 }

@@ -13,4 +13,5 @@ public interface IInventoryMovementService {
     List<InventoryMovementResponseDTO> findByProductId(Long productId);
     List<InventoryMovementResponseDTO> findByUserId(Long userId);
     List<InventoryMovementResponseDTO> findMovementsBetweenDates(LocalDateTime startDate, LocalDateTime endDate);
+    List<InventoryMovementResponseDTO> getMonthlyMovementsSummary();
 }
