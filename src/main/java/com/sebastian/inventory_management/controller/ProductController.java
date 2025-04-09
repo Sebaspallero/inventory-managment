@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-    
+
     private IProductService productService;
 
     public ProductController(IProductService productService) {
@@ -93,9 +93,32 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(products);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
+    @GetMapping("/total-inventory")
+    public ResponseEntity<Integer> getTotalInventory() {
+        Integer totalInventory = productService.getTotalInventory();
+        return ResponseEntity.status(HttpStatus.OK).body(totalInventory);
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
+    @GetMapping("/inventory-by-category")
+    public ResponseEntity<List<ProductResponseDTO>> getInventoryByCategory() {
+        List<ProductResponseDTO> inventoryByCategory = productService.getInventoryByCategory();
+        return ResponseEntity.status(HttpStatus.OK).body(inventoryByCategory);
+        
+    }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
+    @GetMapping("/products-by-category")
+    public ResponseEntity<List<ProductResponseDTO>> countProductsByCategory() {
+        List<ProductResponseDTO> productsByCategory = productService.countProductsByCategory();
+        return ResponseEntity.status(HttpStatus.OK).body(productsByCategory);
+    }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<ProductResponseDTO> updateProduct(@PathVariable Long id, @Valid @RequestBody ProductRequestDTO productRequest) {
+    public ResponseEntity<ProductResponseDTO> updateProduct(@PathVariable Long id,
+            @Valid @RequestBody ProductRequestDTO productRequest) {
         ProductResponseDTO updatedProduct = productService.updateProduct(id, productRequest);
         return ResponseEntity.status(HttpStatus.OK).body(updatedProduct);
     }

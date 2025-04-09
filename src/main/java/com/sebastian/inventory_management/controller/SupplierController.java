@@ -65,6 +65,13 @@ public class SupplierController {
         return ResponseEntity.status(HttpStatus.OK).body(suppliers);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
+    @GetMapping("/count")
+    public ResponseEntity<Long> getCountSuppliers(){
+        Long suppliers = supplierService.countActiveSuppliers();
+        return ResponseEntity.status(HttpStatus.OK).body(suppliers);
+    }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSupplier(@PathVariable Long id){

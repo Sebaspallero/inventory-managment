@@ -61,6 +61,11 @@ public class SupplierServiceImpl implements ISupplierService{
     }
 
     @Override
+    public Long countActiveSuppliers() {
+        return supplierRepository.countActiveSuppliers();
+    }
+
+    @Override
     public void deleteSupplier(Long id) {
         Supplier supplier = getSupplierByIdEntity(id);
         supplierRepository.delete(supplier);
@@ -99,4 +104,6 @@ public class SupplierServiceImpl implements ISupplierService{
             }
         });
     }
+
+    
 }

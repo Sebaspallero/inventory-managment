@@ -107,6 +107,21 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
+    public Integer getTotalInventory() {
+        return productRepository.getTotalInventory();
+    }
+
+    @Override
+    public List<ProductResponseDTO> getInventoryByCategory() {
+        return productRepository.getInventoryByCategory();
+    }
+
+    @Override
+    public List<ProductResponseDTO> countProductsByCategory() {
+        return productRepository.countProductsByCategory();
+    }
+
+    @Override
     public ProductResponseDTO updateProduct(Long id, ProductRequestDTO product) {
         Product productToUpdate = getProductByIdEntity(id);
         validateUniqueProductName(product.getName(), id);

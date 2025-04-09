@@ -14,6 +14,7 @@ public interface ISupplierService {
     SupplierResponseDTO getSupplierByName(String name);
     SupplierResponseDTO getSupplierByContactEmail(String contactEmail);
     List<SupplierResponseDTO> getAllSuppliers();
+    Long countActiveSuppliers();
     void deleteSupplier(Long id);
     SupplierResponseDTO updateSupplier(Long id, SupplierRequestDTO supplier);
 }
