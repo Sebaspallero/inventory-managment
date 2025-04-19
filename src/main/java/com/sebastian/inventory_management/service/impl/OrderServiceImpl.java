@@ -125,7 +125,7 @@ public class OrderServiceImpl implements IOrderService {
     }
 
     @Override
-    public List<OrderCountByMonthDTO> countOrdersByMonth() {
+    public OrderCountByMonthDTO countOrdersByMonth() {
        return orderRepository.countOrdersByMonth();
     }
 
@@ -176,6 +176,7 @@ public class OrderServiceImpl implements IOrderService {
             OrderItem orderItem = orderItemMapper.toEntity(itemDTO);
             orderItem.setProduct(product);
             orderItem.setOrder(order);
+            orderItem.setPrice(product.getPrice());
             return orderItem;
         }).collect(Collectors.toList());
     }

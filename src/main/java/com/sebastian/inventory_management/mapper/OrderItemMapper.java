@@ -15,6 +15,7 @@ public interface OrderItemMapper {
     @Mapping(source = "productId", target = "product.id")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "order", ignore = true)
+    @Mapping(target = "price", ignore = true)
     OrderItem toEntity(OrderItemRequestDTO dto);
 
     @Mapping(source = "product.name", target = "productName")

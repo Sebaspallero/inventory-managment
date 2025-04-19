@@ -16,7 +16,7 @@ public interface IOrderService {
     List<OrderResponseDTO> getOrdersBySupplier(Long supplierId);
     List<OrderResponseDTO> getOrdersBetweenDates(LocalDateTime startDate, LocalDateTime endDate);
     OrderResponseDTO updateOrder(Long id, OrderRequestDTO orderDTO);
-    List<OrderCountByMonthDTO> countOrdersByMonth();
+    OrderCountByMonthDTO countOrdersByMonth();
     List<OrderResponseDTO> findRecentOrders();
     void deleteOrder(Long id);
     Order getOrderByIdEntity(Long id);

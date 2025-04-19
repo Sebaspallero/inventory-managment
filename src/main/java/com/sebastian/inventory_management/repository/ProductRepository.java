@@ -27,7 +27,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE p.stock > :stockThreshold")
     List<Product> findByStockMoreThan(@Param("stockThreshold") int stockThreshold);
 
-    @Query("SELECT SUM(p.stock) FROM Product p")
+    @Query("SELECT COUNT(p) FROM Product p")
     Integer getTotalInventory();
 
     @Query("SELECT new com.sebastian.inventory_management.DTO.Product.ProductResponseDTO(p.category.name, CAST(SUM(p.stock) AS integer)) FROM Product p GROUP BY p.category.name")

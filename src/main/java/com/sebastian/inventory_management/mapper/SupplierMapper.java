@@ -15,6 +15,8 @@ public interface SupplierMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "products", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     Supplier toEntity(SupplierRequestDTO SupplierRequestDTO);
 
     SupplierResponseDTO toDTO(Supplier Supplier);
@@ -23,5 +25,7 @@ public interface SupplierMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "products", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     void updateEntityFromDto(SupplierRequestDTO dto, @MappingTarget Supplier entity);
 }

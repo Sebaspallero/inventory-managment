@@ -31,7 +31,7 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
                         "FROM Order o " +
                         "GROUP BY YEAR(o.orderDate), MONTH(o.orderDate) " +
                         "ORDER BY YEAR(o.orderDate), MONTH(o.orderDate)")
-        List<OrderCountByMonthDTO> countOrdersByMonth();
+        OrderCountByMonthDTO countOrdersByMonth();
 
         @Query("SELECT new com.sebastian.inventory_management.DTO.Order.OrderResponseDTO(o.id, o.orderNumber, o.orderDate, s.id, s.name) "
                         +

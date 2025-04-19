@@ -81,8 +81,8 @@ public class OrderController {
 
     @PreAuthorize("hasAnyRole('ADMIN', 'EMPLOYEE')")
     @GetMapping("/monthly")
-    public ResponseEntity<List<OrderCountByMonthDTO>> getOrdersByMonth() {
-        List<OrderCountByMonthDTO> orderResponseDTO = orderService.countOrdersByMonth();
+    public ResponseEntity<OrderCountByMonthDTO> getOrdersByMonth() {
+        OrderCountByMonthDTO orderResponseDTO = orderService.countOrdersByMonth();
         return ResponseEntity.status(HttpStatus.OK).body(orderResponseDTO);
     }
 

@@ -15,6 +15,8 @@ public interface CategoryMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "products", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     Category toEntity(CategoryRequestDTO categoryRequestDTO);
 
     CategoryResponseDTO toDTO(Category category);
@@ -23,6 +25,8 @@ public interface CategoryMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "products", ignore = true)
+    @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     void updateEntityFromDto(CategoryRequestDTO dto, @MappingTarget Category category);
 
 }
